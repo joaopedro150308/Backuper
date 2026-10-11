@@ -1,0 +1,2 @@
+Aqui ficariam, por exemplo, guardados os caminhos para os documentos alvo do backup.
+Esse arquivo deve poder ser criado pelo sistema, quando necessário, não sendo instalado previamente.
