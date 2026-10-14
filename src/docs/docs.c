@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "configs.h"
 #include "docs/docs.h"
@@ -43,4 +44,19 @@ void ler_doc_path(char *retorno)
 
     strcpy(retorno, buff);
     printf("Caminho retornado!\n");
+}
+
+
+char  *criar_dest_path(const char *doc_name, const char *dest_dir)
+{
+    char *buff = malloc(CAMINHOS_TAM_MAX);
+    if(!buff)
+    {
+        printf("Erro ao criar caminho de destino.\n");
+        exit(1);
+    }
+
+    sprintf(buff, "%s\\%s", dest_dir, doc_name);
+
+    return buff;
 }

@@ -1,2 +1,3 @@
-Aqui ficariam, por exemplo, guardados os caminhos para os documentos alvo do backup.
-Esse arquivo deve poder ser criado pelo sistema, quando necessário, não sendo instalado previamente.
+C:\Users\joaop\Desktop\a
+C:\Users\joaop\Desktop\texto.txt
+C:\Users\joaop\Desktop\a\Testes
