@@ -7,7 +7,11 @@
 #define CAMINHOS_TAM_MAX 260 // Faz referência ao número máximo de caracteres que uma string representando um caminho pode ter.
 #define DOCS_NAME_MAX 260 // Número máximo de caracteres para NOMES de pastas ou arquivos
 
-#define DOCS_DB_PATH "data/docs_alvos.txt" // Caminho para o "banco de dados" dos documentos alvos do backup (é apenas um exemplo). Vide documentos.h para entender aplicação
 
+#define DATA_CAMINHOS_CONTAGEM_PATH "data\\caminhos\\contagem.txt"
+#define DATA_CAMINHOS_CAMINHOS_PATH "data\\caminhos\\caminhos.txt"
+
+
+#define INPUT_CHAR_BUFF_MAX 260
 
 #endif

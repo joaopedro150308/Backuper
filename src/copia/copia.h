@@ -2,12 +2,8 @@
 #define COPIA_H
 
 
-
-
-void copy_dir(const char *src, const char *dest);
-
 /*
-Procedimento que verifica e executa uma função de cópia dependendo da natureza do coumento no caminho. Diretório ou arquivo.
+Procedimento que verifica e executa uma função de cópia dependendo da natureza do coumento no caminho. Diretório ou arquivo. O procedimento retorna verdadeiro se a execução for bem sucedida
 */
 bool copy_doc(const char *src, const char *dest);
 
