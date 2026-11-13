@@ -1,27 +1,17 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "configs.h"
-#include "docs/docs.h"
+#include "lista/lista.h"
+#include "caminhos/caminhos.h"
 
 
 
 /************************************
     Funções específicas de docs.c
 ************************************/
-
-/*
-Exemplo de função que ficará disponível apenas no .c, não será distribuída ao incluir "docs.h".
-*/
-void formatar_caminho(char* alvo)
-{
-    printf("Formatando %s...\n", alvo);
-    printf("Formatado!\n");
-}
-
-
-
 
 
 /************************************
@@ -32,18 +22,44 @@ void formatar_caminho(char* alvo)
 /*
 Exemplo de função que seria distribuída com o .h, pois sua declaração está lá e sua descrição/implementação aqui.
 */
-void ler_doc_path(char *retorno)
+bool ler_doc_path(const char *msg, char *retorno)
 {
     char buff[CAMINHOS_TAM_MAX];
 
-    printf("Insira o caminho para um documento: ");
+    printf("%s", msg);
     fgets(buff, CAMINHOS_TAM_MAX, stdin);
     buff[strcspn(buff, "\n")] = '\0';
 
-    formatar_caminho(buff);
+    // Verificando se o caminho é válido
+    bool valido = false;
+    if (access(buff, F_OK) == 0)
+    {
+        valido = true;
+    }
+    else
+    {
+        valido = false;
+    }
 
     strcpy(retorno, buff);
-    printf("Caminho retornado!\n");
+    return valido;
+}
+
+
+void registrar_caminhos(ListaCam *lista)
+{
+    FILE *fptr = fopen(DATA_CAMINHOS_CAMINHOS_PATH, "a");
+    if(!fptr)
+    {
+        printf("Não foi possível abrir o arquivo de caminhos.\n");
+        return;
+    }
+
+    for(int j = 0; j < lista->tam; j++)
+    {
+        fprintf(fptr, "%s\n", lista->caminhos[j]);
+    }
+    fclose(fptr);
 }
 
 

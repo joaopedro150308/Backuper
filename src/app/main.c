@@ -5,14 +5,14 @@
 
 #include "configs.h"
 #include "copia/copia.h"
-#include "docs/docs.h"
+#include "caminhos/caminhos.h"
 #include "uteis/uteis.h"
 #include "lista/lista.h"
 
 /* Protótipos de telas */
 
 int pagina_inicial(void);
-void pagina1(void);
+void adicionar_caminhos(void);
 void pagina2(void);
 
 
@@ -38,7 +38,7 @@ int main()
         switch (n)
         {
         case 1:
-            pagina1();
+            adicionar_caminhos();
             break;
 
         case 2:
@@ -51,6 +51,7 @@ int main()
 
         default:
             printf("\nOPÇÃO INVÁLIDA\n\n");
+            aviso("ERRO: Valor fora de alcance. Digite uma opção válida.\n");
             break;
         }
     }
@@ -74,62 +75,42 @@ int pagina_inicial(void)
 }
 
 
-void pagina1(void)
+void adicionar_caminhos(void)
 {
     ListaCam lista = lista_init(); // Uma lista de caminhos.
     
-    limpar_cmd();
-    printf("\nDIGITE ABAIXO OS CAMINHOS DAS PASTAS QUE DESEJA FAZER BACKUP\nPARA VOLTAR AO MENU PRINCIPAL DIGITE : 0\n\n");
-
     int i;
     char caminho[CAMINHOS_TAM_MAX], msg[64];
 
     // Lendo caminhos
     for (i = 0;; i++)
     {
+        limpar_cmd();
+        printf("\nDIGITE ABAIXO OS CAMINHOS DAS PASTAS QUE DESEJA FAZER BACKUP\nPARA VOLTAR AO MENU PRINCIPAL DIGITE : 0\n\n");
+
         // Lendo caminho
         sprintf(msg, "Digite o %dº caminho: ", i+1);
-        ler_string(msg, caminho);
 
-        // Verificando flag
-        if (caminho[0] == '0')
-            break;
-
-        // Adicionando caminho
-        if(lista_cam_cheia(lista))
+        // Se o caminho for inválido,
+        if (!ler_doc_path(msg, caminho))
         {
-            lista_cam_realloc(&lista);
+            // Verificando se é o flag
+            if (caminho[0] == '0')
+                break;
+            else
+            {
+                aviso("\nErro ao ler caminhos. Caminho inválido. Tente novamente.\n");
+                i--; continue;
+            }
         }
-        lista_cam_add(&lista, caminho);
+        else
+        {
+            // Adicionando caminho
+            lista_cam_add(&lista, caminho);
+        }
     }
-
-    // Registrando caminhos (poderia ser uma função separada)
-
-        // Registrando quantidade de caminhos lidos
-    FILE *fptr = fopen(DATA_CAMINHOS_CONTAGEM_PATH, "w");
-    if (fptr == NULL)
-    {
-        printf("\nERRO: Não foi possível localizar o arquivo de contagem.\n");
-        return;
-    }
-
-    fprintf(fptr, "%d", lista.tam);
-    fclose(fptr);
-
-        // Registrando caminhos lidos (poderia ser uma função separada)
-    fptr = fopen(DATA_CAMINHOS_CAMINHOS_PATH, "w");
-    if(!fptr)
-    {
-        printf("Não foi possível abrir o arquivo de caminhos.\n");
-        return;
-    }
-
-    for(int j = 0; j < lista.tam; j++)
-    {
-        fprintf(fptr, "%s\n", lista.caminhos[j]);
-    }
-    fclose(fptr);
-
+        
+    // Registrando caminhos lidos (poderia ser uma função separada)
+    registrar_caminhos(&lista);
     lista_cam_free(&lista);
 }
-

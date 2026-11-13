@@ -24,9 +24,9 @@ ListaCam lista_init()
 }
 
 
-bool lista_cam_cheia(ListaCam lista)
+bool lista_cam_cheia(ListaCam *lista)
 {
-    return lista.cap == lista.tam;
+    return lista->cap == lista->tam;
 }
 
 
@@ -38,17 +38,20 @@ void lista_cam_limpar(ListaCam *lista)
 
 void lista_cam_add(ListaCam *lista, const char *cam)
 {
-    char *novo_cam = malloc(strlen(cam));
+    char *novo_cam = malloc(CAMINHOS_TAM_MAX);
     if(!novo_cam)
     {
-        printf("\nNão foi possível adicionar novo caminho.\n");
+        printf("Erro ao adicionar novo caminho.\n");
         return;
     }
 
     strcpy(novo_cam, cam);
-
+    // Adicionando
+    if(lista_cam_cheia(lista))
+    {
+        lista_cam_realloc(lista);
+    }
     lista->caminhos[lista->tam] = novo_cam;
-
     lista->tam = lista->tam + 1;
 }
 
@@ -60,12 +63,13 @@ void lista_cam_realloc(ListaCam *lista)
     char **novo_caminhos = realloc(lista->caminhos, lista->cap * sizeof(char*));
     if(!novo_caminhos)
     {
-        printf("Erro ao reallocar lista de caminhos.\n");
+        printf("Erro ao reallocar novo_caminhos");
+        lista->cap = lista->cap / 2;
         return;
     }
-
     lista->caminhos = novo_caminhos;
 }
+
 
 void lista_cam_free(ListaCam *lista)
 {

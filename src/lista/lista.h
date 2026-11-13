@@ -28,7 +28,7 @@ ListaCam lista_init();
 /*
 Função que verifica se uma lsita está cheia. Retorna veidadeiro ou falso
 */
-bool lista_cam_cheia(ListaCam lista);
+bool lista_cam_cheia(ListaCam *lista);
 
 
 /*
