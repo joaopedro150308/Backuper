@@ -4,16 +4,20 @@
 #include <time.h>
 
 #include "configs.h"
+
 #include "copia/copia.h"
 #include "caminhos/caminhos.h"
+#include "backups/bakcups.h"
+
 #include "uteis/uteis.h"
 #include "lista/lista.h"
 
 /* Protótipos de telas */
 
-int pagina_inicial(void);
-void adicionar_caminhos(void);
-void pagina2(void);
+int pagina_inicial();
+void adicionar_caminhos();
+void iniciar_backup();
+void pagina2();
 
 
 int main()
@@ -43,6 +47,7 @@ int main()
 
         case 2:
             // pagina2();
+            iniciar_backup();
             break;
 
         case 0:
@@ -113,4 +118,22 @@ void adicionar_caminhos(void)
     // Registrando caminhos lidos (poderia ser uma função separada)
     registrar_caminhos(&lista);
     lista_cam_free(&lista);
+}
+
+
+void iniciar_backup()
+{
+    aviso("Iniciando backup...\n");
+
+    char nome[SUB_PASTAS_BACKUPS_NOME_TAM_MAX];
+    if(!criar_nome_pasta(nome))
+    {
+        printf("Sucesso ao definir nome.\nNome lido: %s\n", nome);
+    }
+    else
+    {
+        printf("Erro ao criar nome para a pasta.\n");
+    }
+
+    criar_pasta_para_backup(nome);
 }
