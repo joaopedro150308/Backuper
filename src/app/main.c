@@ -1,13 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <time.h>
+#include <windows.h>
 
 #include "configs.h"
 
 #include "copia/copia.h"
 #include "caminhos/caminhos.h"
 #include "backups/bakcups.h"
+#include "data/data.h"
 
 #include "uteis/uteis.h"
 #include "lista/lista.h"
@@ -22,18 +21,12 @@ void pagina2();
 
 int main()
 {
-    // char dest[CAMINHOS_TAM_MAX] = "C:\\Users\\joaop\\Desktop\\Backups";
-    // char caminho[CAMINHOS_TAM_MAX];
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
 
-    // ler_doc_path(caminho);
-
-    // bool sucesso = copy_doc(caminho, dest);
-
-    // if(sucesso)
-    //     printf("\nCopia bem sucedida\n");
-    
-    // Preparando pasta Backups
-    if(pasta_backups_setup())
+    // Setups
+        // Preparando pasta Backups
+    if(pasta_backups_setup() == 0)
     {
         printf("Pasta Backups preparada com sucesso.\n");
     }
@@ -43,6 +36,18 @@ int main()
         return 1;
     }
 
+        // Preparando pasta data
+    if(pasta_data_setup() == 0)
+    {
+        printf("Pasta data preparada com sucesso.\n");
+    }
+    else
+    {
+        printf("Houve um erro ao preparar a pasta data. Encerrando o programa.\n");
+        return 1;
+    }
+
+    // Programa principal
     limpar_cmd();
     int n = -1;
 
@@ -71,8 +76,6 @@ int main()
             break;
         }
     }
-
-
 
 
     return 0;

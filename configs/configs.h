@@ -10,9 +10,11 @@
 
 #define DATA_CAMINHOS_CONTAGEM_PATH "data\\caminhos\\contagem.txt"
 #define DATA_CAMINHOS_CAMINHOS_PATH "data\\caminhos\\caminhos.txt"
-#define DATA_BACKUPS_PATH "data\\backups_path"
 
-#define BACKUPS_PATH "Backups"
+#define DATA_DIR_PATH "data"
+#define DATA_CAMINHOS_DIR_PATH "data\\caminhos"
+
+#define BACKUPS_DIR_PATH "Backups"
 
 
 #define INPUT_CHAR_BUFF_MAX 260

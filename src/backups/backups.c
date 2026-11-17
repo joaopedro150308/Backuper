@@ -8,13 +8,12 @@
 #include "backups/bakcups.h"
 
 
-
 int pasta_backups_setup()
 {
-    if(!pasta_existe(BACKUPS_PATH))
+    if(!pasta_existe(BACKUPS_DIR_PATH))
     {
         printf("Pasta Backups não encontrada. Criando uma nova...\n");
-        if(CreateDirectoryA(BACKUPS_PATH, NULL))
+        if(CreateDirectoryA(BACKUPS_DIR_PATH, NULL))
         {
             printf("Pasta Backups criada com sucesso.\n");
             return 0; // Sucesso.
@@ -51,20 +50,9 @@ int criar_nome_pasta(char *retorno)
 
 int criar_pasta_para_backup(const char *pasta_nome)
 {
-    char backups_caminho[PATH_MAX];
+    char backups_caminho[PATH_MAX] = {BACKUPS_DIR_PATH};
     char sub_pasta[PATH_MAX];
 
-    // Conseguindo caminho para a pasta Backups
-    FILE *fptr = fopen(DATA_BACKUPS_PATH, "r");
-    if(fptr == NULL)
-    {
-        printf("Erro ao abrir o arquivo.\n");
-        return 1;
-    }
-
-    fgets(backups_caminho, PATH_MAX, fptr);
-    backups_caminho[strcspn(backups_caminho, "\n")] = '\0';
-    fclose(fptr);
 
     // Montando caminho para a subpasta que será criada
     sprintf(sub_pasta, "%s\\%s", backups_caminho, pasta_nome);
