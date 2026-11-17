@@ -12,6 +12,8 @@
 #define DATA_CAMINHOS_CAMINHOS_PATH "data\\caminhos\\caminhos.txt"
 #define DATA_BACKUPS_PATH "data\\backups_path"
 
+#define BACKUPS_PATH "Backups"
+
 
 #define INPUT_CHAR_BUFF_MAX 260
 

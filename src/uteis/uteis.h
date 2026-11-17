@@ -35,7 +35,18 @@ Paraâmetros:
 void ler_string(const char *msg, char *retorno);
 
 
+/*************************************
+        Funções para arquvos
+*************************************/
 
+/*
+-> Função que verifica se um caminho é válido e representa um diretório.
+
+:param caminho: Caminho para o diretório que será verificado.
+
+:return: Retorna 1 se o caminho é válido e é um diretório. Retorna 0 caso contrário.
+*/
+int pasta_existe(const char *caminho);
 
 
 

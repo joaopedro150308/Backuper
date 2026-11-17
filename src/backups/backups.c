@@ -4,7 +4,33 @@
 #include <windows.h>
 
 #include "configs.h"
+#include "uteis/uteis.h"
 #include "backups/bakcups.h"
+
+
+
+int pasta_backups_setup()
+{
+    if(!pasta_existe(BACKUPS_PATH))
+    {
+        printf("Pasta Backups não encontrada. Criando uma nova...\n");
+        if(CreateDirectoryA(BACKUPS_PATH, NULL))
+        {
+            printf("Pasta Backups criada com sucesso.\n");
+            return 0; // Sucesso.
+        }
+        else
+        {
+            printf("Erro ao criar pasta Backups.\n");
+            return 1;
+        }
+    }
+    else
+    {
+        printf("Pasta Backups já existe.\n");
+        return 0;
+    }
+}
 
 
 int criar_nome_pasta(char *retorno)
@@ -17,7 +43,7 @@ int criar_nome_pasta(char *retorno)
 
     data = localtime(&t);
 
-    sprintf(nome, "%d-%d-%d_%d-%d", data->tm_mday, data->tm_mon + 1, data->tm_year + 1900, data->tm_hour, data->tm_min);
+    sprintf(nome, "%2d-%2d-%4d_%2d-%2d", data->tm_mday, data->tm_mon + 1, data->tm_year + 1900, data->tm_hour, data->tm_min);
     strcpy(retorno, nome);
     return 0;
 }

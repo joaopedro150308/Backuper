@@ -2,6 +2,15 @@
 #define BACKUPS_H
 
 
+
+/*
+-> Função que verifica a existência da pasta padrão Backups no mesmo diretório do app. Se não for encontrada, a cria.
+
+:return: Retorna 0 se tudo ocorrer bem e um número não nulo caso contrário.
+*/
+int pasta_backups_setup();
+
+
 /*
 -> Função que cria o nome para uma basta de backup. Esse nome será também a data no momento atual.
 

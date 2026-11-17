@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <windows.h>
 
 #include "configs.h"
 #include "uteis/uteis.h"
@@ -61,3 +62,13 @@ void aviso(const char *msg)
     ler_string("Pressione ENTER para continuar.\n", buff);
 }
 
+/*************************************
+        Funções para arquvos
+*************************************/
+
+int pasta_existe(const char *caminho)
+{
+    DWORD atributos = GetFileAttributes(caminho);
+
+    return (atributos != INVALID_FILE_ATTRIBUTES && atributos & FILE_ATTRIBUTE_DIRECTORY);
+}

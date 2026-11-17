@@ -32,6 +32,17 @@ int main()
     // if(sucesso)
     //     printf("\nCopia bem sucedida\n");
     
+    // Preparando pasta Backups
+    if(pasta_backups_setup())
+    {
+        printf("Pasta Backups preparada com sucesso.\n");
+    }
+    else
+    {
+        printf("Houve um erro ao preparar a pasta Backups. Encerrando o programa.\n");
+        return 1;
+    }
+
     limpar_cmd();
     int n = -1;
 
